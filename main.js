@@ -31,6 +31,3 @@ app.get('/', (req, res) => { res.send(`
 
 app.listen(3000, () => console.log("Sever running"));
 
-JWT libreria q me permite generar un token
-un string muy largo
-el usuario cada vez q quiere ahcer algo lo adjunta en la header

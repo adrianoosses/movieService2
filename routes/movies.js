@@ -22,8 +22,6 @@ moviesArray.push(new Movie("Scarface", "4", "drama", ["Al Pacino"]));
 
 // Endpoint busqueda titulo -> GET a MongoDB?
 function getMovieByTitle(title){
-    //console.log("search movies by title");
-    //console.log("title: ", title);
     return moviesArray.find((item) => item.title === title);
 }
 
@@ -35,9 +33,7 @@ router.get('/getMovieByTitle', (req, res) =>{
 
 // Endpoint busqueda id -> GET a MongoDB?
 function getMovieById(id){
-    //console.log(typeof(id));
     let movie = moviesArray.find((item) => item.id === id);
-    //console.log("Movie: " +movie);
     return movie;
 }
 
@@ -48,9 +44,7 @@ router.get('/getMovieById', (req, res) =>{
 });
 
 function getMovieByGenre(genre){
-    //console.log(typeof(id));
     let movies = moviesArray.filter((item) => item.genre === genre);
-    //console.log("Movie: " +movies);
     return movies;
 }
 
@@ -62,13 +56,6 @@ router.get('/getMovieByGenre', (req, res) =>{
 
 function getMovieByActor(actor){
     let movies = moviesArray.filter((itemMovie) => itemMovie.actors.find((item) => item === actor));
-    /*
-    console.log(actor);
-    let movies = [];
-    for(let i = 0; i < moviesArray.length; i++){
-        console.log("actors: " + moviesArray[i].actors);
-        if(moviesArray[i].actors.find((item) => item === actor)) movies.push(moviesArray[i]); 
-    }*/
     return movies;
 }
 

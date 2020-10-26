@@ -1,6 +1,41 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+let jwt = require('jsonwebtoken');
+
+// https://www.npmjs.com/package/jsonwebtoken
+//var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256'});
+/*jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' }, function(err, token) {
+    console.log(token);
+  });
+*/
+
+/*
+module.exports.generateToken = (data, expiresIn = CONF.JWT.SESSION_TIME * 60 * 60) => (
+jwt.sign(data, CONF.JWT.SECRET, {expiresIn})
+*/
+/*
+jwt.sign({
+  data: 'foobar'
+}, 'secret', { expiresIn: 60 * 60 });
+*/
+/* sign(payload: string | object | Buffer, secretOrPrivateKey: Secret, options?: SignOptions): string */
+/*Synchronously sign the given payload into a JSON Web Token string payload - Payload to sign, could be an literal, 
+buffer or string secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for
+ RSA and ECDSA. [options] - Options for the signature returns - The JSON Web Token string */ 
+jwt.sign()
+let token = jwt.sign({foo: 'bar'}, privateKey, { algorithm: 'RS256'});
+
+//verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): string | object
+/* Synchronously verify given token using a secret or a public key to get a decoded token token - 
+JWT string to verify secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM
+ encoded public key for RSA and ECDSA. [options] - Options for the verification returns - The decoded token.*/
+/*
+ // verify a token symmetric - synchronous
+var decoded = jwt.verify(token, 'shhhhh');
+console.log(decoded.foo) // bar
+*/
+let decoded = jwt.verify()
 
 // GESTION DE USUARIO
 
@@ -23,12 +58,6 @@ let usersArray = []
 usersArray.push(adrianoParse);
 
 let addUser = (userName, userPassword, userRole) =>{
-    //console.log("current user role: " + currentUser.role);
-    //let setUserIdFlag = setUserId(newUser);
-    //console.log("setUserFlag " + setUserIdFlag);
-    //console.log("currentUser.role " + currentUser.role);
-    //console.log("getUserByName(newUser.name)" + getUserByName(newUser.name) );
-
     if(currentUser.role === "admin" && getUserByName(userName) === undefined ){
         let newUser = new User(userName, userPassword, userRole);
         if(setUserId(newUser) === true){
@@ -65,8 +94,9 @@ let getUserById = (userId) =>{
 }
 
 function idExists(id){
-    let res = getUserById(id) === undefined ? false: true;
-    return res;
+    /*let res = getUserById(id) === undefined ? false: true;
+    return res; */
+    return !!getUserById(id);
 }
 function setUserId(user){
     let idGenerate = 0;
