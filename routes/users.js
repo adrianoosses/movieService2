@@ -23,8 +23,8 @@ jwt.sign({
 /*Synchronously sign the given payload into a JSON Web Token string payload - Payload to sign, could be an literal, 
 buffer or string secretOrPrivateKey - Either the secret for HMAC algorithms, or the PEM encoded private key for
  RSA and ECDSA. [options] - Options for the signature returns - The JSON Web Token string */ 
-jwt.sign()
-let token = jwt.sign({foo: 'bar'}, privateKey, { algorithm: 'RS256'});
+//jwt.sign()
+//let token = jwt.sign({foo: 'bar'}, privateKey, { algorithm: 'RS256'});
 
 //verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): string | object
 /* Synchronously verify given token using a secret or a public key to get a decoded token token - 
@@ -35,7 +35,9 @@ JWT string to verify secretOrPublicKey - Either the secret for HMAC algorithms, 
 var decoded = jwt.verify(token, 'shhhhh');
 console.log(decoded.foo) // bar
 */
-let decoded = jwt.verify()
+//let decoded = jwt.verify()
+
+// https://www.oscarblancarteblog.com/2017/06/08/autenticacion-con-json-web-tokens/
 
 // GESTION DE USUARIO
 
@@ -57,7 +59,18 @@ let adrianoParse = JSON.parse(adrianoString);
 let usersArray = []
 usersArray.push(adrianoParse);
 
+let generateToken = (userName, userPassword, userRole)=>{
+    let newUser = {
+        name: userName,
+        role: userRole,
+        order: null
+    }
+    return token = jwt.sign(newUser, userPassword, {expiresIn: 60 * 60 * 24})
+}
+
+
 let addUser = (userName, userPassword, userRole) =>{
+    console.log(generateToken(userName, userPassword, userRole));
     if(currentUser.role === "admin" && getUserByName(userName) === undefined ){
         let newUser = new User(userName, userPassword, userRole);
         if(setUserId(newUser) === true){
@@ -106,6 +119,24 @@ function setUserId(user){
     console.log("user id:" + user.id);
     return true;
 }
+
+// Como lo paso por postman? dice q se genera automaticamente. como?
+// hay que quitar el bearer? lo pone en la pag de la compañera
+// la contraseña cual es? la del usuario? como verifico q usuario quiere hacer determinada accion? el logeado (current user)?
+/*
+router.use('/sec', (req, res, next) =>{
+    let token = req.headers.authorization;
+    token = token.replace('Bearer ', '');
+    // hacer try catch
+    jwt.verify(token, '123456', function(err, token){
+        if(err){
+            return -1;
+        } else {
+            req.token = token;
+            next();
+        }
+    })
+}*/
 
 
 // Endpoint de Baja de usuario (D) -> DELETE
