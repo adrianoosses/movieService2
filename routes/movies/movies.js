@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 
 // GESTION DE PELICULAS
 
@@ -12,7 +15,7 @@ class Movie{
         this.actors = actors;
     }
 }
-
+exports.pelicula = {name: "The Goodfather", id:"1", genre:"drama", actors:"Marlon Brando"};
 let moviesArray = [];
 moviesArray.push(new Movie("The Godfather", "1", "drama", ["Marlon Brando", "Al Pacino"]));
 moviesArray.push(new Movie("12 Angry Men", "2", "drama", ["Henry Fonda"]));
@@ -26,6 +29,16 @@ function getMovieByTitle(title){
 }
 
 router.get('/getMovieByTitle', (req, res) =>{
+    let title = req.body.title;
+    let moviesByTitle = getMovieByTitle(title)
+    res.send(moviesByTitle); 
+});
+
+function addMovie(){
+    return moviesArray.find((item) => item.title === title);
+}
+
+router.post('/addMovie', (req, res) =>{
     let title = req.body.title;
     let moviesByTitle = getMovieByTitle(title)
     res.send(moviesByTitle); 
