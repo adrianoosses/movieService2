@@ -5,12 +5,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // #DUDA: donde se almacenan los tokens para compararlos? en la coleccion usuarios?
 
-exports.users = mongoose.model('Users', new Schema({
-    id:{type: String},
+exports.User = mongoose.model('User', new Schema({
     name:{type: String},
     pass:{type: String},
     role:{type: String},
-    token:{type: String}
 }));
 
 //exports.pelicula = {name: "The Goodfather", id:"1", genre:"drama", actors:"Marlon Brando"};

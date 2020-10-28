@@ -4,8 +4,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // #TAREA: listar peliculas
-let usr = require('./routes/users/users.js');
-//let mv = require('./routes/movies/movies.js');
+let usr = require('./components/user/router.js');
+//let mv = require('./components/movie/router.js');
 //let or = require('./routes/orders.js');
 
 let bodyParser = require('body-parser')
@@ -31,8 +31,8 @@ useFindAndModify: false
 // una por cada entidad
 
 
-app.use('/users', usr.routes);
-//app.use('/movies', mv.routes);
+app.use('/user', usr.routes);
+//app.use('/movie', mv.routes);
 //app.use('/orders', or.routes);
 
 
