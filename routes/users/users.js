@@ -30,58 +30,7 @@ let loadUsers = async () =>{
     const adriano = new um.users(adrianoObj);
     await adriano.save();
 }
-
-loadUsers().then();
-
-//let getUserByName = (nameUser) => usersArray.find((item) => item.name === nameUser);
-let getUserByName = async (userName) => {
-    return usr1 = await um.users.find({name: userName});
-    //console.log("USUARIOS3: " + usr1);
-}
-
-let login = async (name, password) =>{
-    let usrLoginString = await getUserByName(name);
-    console.log("usrLoginString: "+usrLoginString);
-    if(usrLoginString !== undefined){
-        let usrLogin = JSON.parse(usrLoginString);
-        if(usrLogin.pass === password) return true;
-        else{
-            console.log("Wrong user or password ");
-            return false;
-        }
-    }   
-}
-
-router.get('/login', (req, res) =>{
-    name = req.body.name;
-    password = req.body.password
-    if(login(name, password)?res.send("Logged"):res.send("Not logeed"));
-});
-
-
-/*
-let usersArray = []
-usersArray.push(adrianoParse);
-console.log("usersArray" + usersArray); */
-/*
-let addUser = async (userName, userPassword, userRole) =>{
-    console.log(generateToken(userName, userPassword, userRole));
-    //if(currentUser.role === "admin" && getUserByName(userName) === undefined ){ hacer localstorage
-    let newUser = {id: null, name: userName, pass: userPassword, role: userRole}
-    if(setUserId(newUser) === true){
-        //usersArray.push(newUser);
-        const user = new usersSchema(newUser);
-        await user.save();
-        return true;
-    } else return false;
-    //} else return false;
-};
-
-
-router.post('/addUser', (req, res) =>{
-    let msg = (addUser(req.body.name, req.body.password, req.body.role))?"User added.":"denied";
-    res.json({"message":msg}); 
-});
+//loadUsers().then();
 
 
 let generateToken = (userName, userRole)=>{
@@ -93,6 +42,62 @@ let generateToken = (userName, userRole)=>{
     return token = jwt.sign(newUser, claveToken, {expiresIn: 60 * 60 * 24})
 }
 
+let getUserByName = async (userName) => usr1 = await um.users.find({name: userName});
+let getUserById = async (userId) => usr1 = await um.users.find({id: userId});
+
+let login = async (name, password) =>{
+    let usrLoginString = (await getUserByName(name))[0];
+    if(usrLoginString !== undefined){
+        if(usrLoginString.pass === password) return true;
+        else{
+            console.log("Wrong user or password ");
+            return false;
+        }
+    }
+}
+
+router.get('/login', (req, res) =>{
+    name = req.body.name;
+    password = req.body.password
+    if(login(name, password)?res.send("Logged"):res.send("Not logeed"));
+});
+
+
+async function idExists(id){ 
+    return !!(await getUserById(id));
+}
+
+function setUserId(user){
+    let idGenerate = 0;
+    do idGenerate = Math.floor(Math.random()*200);
+    while(idExists(idGenerate) === true);
+    user.id = idGenerate;
+    return true;
+}
+
+let addUser = async (userName, userRole) =>{
+    let token = generateToken(userName, userRole);
+    //if(currentUser.role === "admin" && getUserByName(userName) === undefined ){ hacer localstorage
+    let newUser = {id: null, name: userName, pass: userPassword, token, role: userRole}
+    if(setUserId(newUser)){
+        const user = new um.users(newUser);
+        await user.save();
+        return true;
+    } else return false;
+    
+    //} else return false;
+};
+
+router.post('/addUser', (req, res) =>{
+    let msg = (addUser(req.body.name, req.body.password, req.body.role))?"User added.":"denied";
+    res.json({"message":msg}); 
+});
+
+/*
+let usersArray = []
+usersArray.push(adrianoParse);
+console.log("usersArray" + usersArray); */
+/*
 
 let getUsers = () => {
     return usersArray;
@@ -108,22 +113,10 @@ router.get('/getUsers', (req, res) =>{
 
 
 //const getUserById = (userId) => usersArray.find((item) => item.id === userId);
-function getUserById(userId){ 
-    return usersArray.find((item) => item.id === userId);
-}
 
-function idExists(id){ 
-    return !!getUserById(id)
-}
 
-function setUserId(user){
-    let idGenerate = 0;
-    do idGenerate = Math.floor(Math.random()*200);
-    while(idExists(idGenerate));
-    user.id = idGenerate;
-    console.log("user id:" + user.id);
-    return true;
-}
+
+
 // midel ware: miro si hay tokens y si lo hay lo pongo en otros servicios q seran los horizontales 
 
 router.use('/sec', (req, res, next) =>{
