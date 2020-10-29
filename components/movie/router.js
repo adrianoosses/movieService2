@@ -23,5 +23,4 @@ router.post('/', (req, res) =>{
     res.json({"msg": req.body.title + msg});
 });
 
-
 exports.routes = router;

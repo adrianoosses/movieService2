@@ -1,8 +1,6 @@
-const um = require('./model.js');
-const User = um.User;
+const {User} = require('./model.js');
 let jwt = require('jsonwebtoken');
 let claveToken = "fdfdkjfd.sa#fjpdfjkl";
-//const us = require('./service.js');
 
 exports.generateToken = (user)=>{
     let newUser = {
@@ -12,19 +10,15 @@ exports.generateToken = (user)=>{
     return token = jwt.sign(newUser, claveToken, {expiresIn: 60 * 60 * 24})
 }
 
-exports.getUserByName = async (userName) =>{
-    let objBuscado = User.findOne({name: userName});
-    return objBuscado;
-} 
-
 exports.getUserById = async (userId) =>{
-    console.log(userId);
     return await User.findOne({_id: userId});
 } 
 
-exports.getUsers = async () =>{
+exports.getUsers = async (queryIn) =>{
     //let usuarios = await Promise.all(um.users.find({}));
-    let usuarios = await User.find({});
+    let query = {};
+    if(queryIn.name) query.name = queryIn.name;
+    let usuarios = await User.find(query);
     return usuarios;
 } 
 
