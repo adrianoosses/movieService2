@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
+const um = require('./model.js');
+const User = um.User;
 
-let loadUsers = async () =>{
+exports.loadUsers = async () =>{
     const adrianoObj = {name: 'adriano', pass: '123456', role: 'admin'};
     //const mortadeloObj = {id: null, name: 'mortadelo', pass: '654321', role: 'client'};
-    const adriano = new um.User(adrianoObj);
+    const adriano = new User(adrianoObj);
     await adriano.save();
 }
 
-loadUsers().then();
+//loadUsers().then();

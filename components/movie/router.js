@@ -4,9 +4,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 // GESTION DE PELICULAS
-
+/*
 class Movie{
     constructor(title, id, genre, actors){
         this.title = title;
@@ -15,12 +14,10 @@ class Movie{
         this.actors = actors;
     }
 }
-exports.pelicula = {name: "The Goodfather", id:"1", genre:"drama", actors:"Marlon Brando"};
-let moviesArray = [];
-moviesArray.push(new Movie("The Godfather", "1", "drama", ["Marlon Brando", "Al Pacino"]));
-moviesArray.push(new Movie("12 Angry Men", "2", "drama", ["Henry Fonda"]));
-moviesArray.push(new Movie("The Schindler List", "3", "drama", ["Liam Neeson"]));
-moviesArray.push(new Movie("Scarface", "4", "drama", ["Al Pacino"]));
+*/
+
+//
+
 
 
 // Endpoint busqueda titulo -> GET a MongoDB?

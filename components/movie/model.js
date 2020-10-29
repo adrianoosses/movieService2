@@ -1,12 +1,9 @@
-const express = require('express');
-const app = express();
-const router = express.Router();
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+let usr = require('./components/movie/model.js');
 
-exports.moviesSchema = mongoose.model('Movies', new Schema({
+exports.Movie = mongoose.model('Movie', new Schema({
     name:{type: String},
-    id:{type: String},
     genre:{type: String},
     actors:{type: Array}
 }));
-
-exports.pelicula = {name: "The Goodfather", id:"1", genre:"drama", actors:"Marlon Brando"};

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-const usr = require('./users/users.js.js');
+const usr = require('./users/users.js');
 
 //GESTION DE PEDIDOS
 class Order{

@@ -5,9 +5,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // #TAREA: listar peliculas
 let usr = require('./components/user/router.js');
+let mv = require('./components/movie/router.js');
+let ldUser = require('./components/user/loadData.js');
+let ldMovie = require('./components/movie/loadData.js');
+
+ldUser.loadUsers().then();
+//ldMovie.loadMovies2().then();
 //let mv = require('./components/movie/router.js');
 //let or = require('./routes/orders.js');
-
 let bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
