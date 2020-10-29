@@ -57,7 +57,7 @@ exports.login = async (name, password) =>{
 
 exports.addUser = async (userName, userPassword, userRole) =>{
     //if(currentUser.role === "admin" && getUserByName(userName) === undefined ){ hacer localstorage
-    let newUser = {id: null, name: userName, pass: userPassword, role: userRole}
+    let newUser = {name: userName, pass: userPassword, role: userRole}
     const user = new User(newUser);
     await user.save();
     return true;
