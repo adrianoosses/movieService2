@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-let usr = require('./components/movie/model.js');
 
 exports.Movie = mongoose.model('Movie', new Schema({
-    name:{type: String},
+    title:{type: String},
     genre:{type: String},
-    actors:{type: Array}
+    director:{type: String},
+    actors:{type: Array},
+    duration:{type: String}
 }));

@@ -2,7 +2,7 @@ const um = require('./model.js');
 const User = um.User;
 let jwt = require('jsonwebtoken');
 let claveToken = "fdfdkjfd.sa#fjpdfjkl";
-const us = require('./service.js');
+//const us = require('./service.js');
 
 exports.generateToken = (user)=>{
     let newUser = {
@@ -29,7 +29,7 @@ exports.getUsers = async () =>{
 } 
 
 exports.deleteUserByName = async(userName) =>{
-    return await User.deleteOne({name: "adriano"});
+    return await User.deleteOne({name: userName});
 }
 
 exports.decodeToken = (token) =>{
@@ -43,7 +43,7 @@ exports.decodeToken = (token) =>{
 
 exports.login = async (name, password) =>{
     console.log("entra al login");
-    let usrLoginString = (await us.getUserByName(name))[0];
+    let usrLoginString = (await getUserByName(name))[0];
     if(usrLoginString !== undefined){
         if(usrLoginString.pass === password){
             console.log("Correct user and token. LOOGED");

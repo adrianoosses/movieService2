@@ -27,8 +27,6 @@ router.get('/login', auth, async (req, res) =>{
     if(us.login(name, password)?res.send("Logged"):res.send("Not logeed"));
 });
 
-
-
 router.post('/', (req, res) =>{
     let msg = (us.addUser(req.body.name, req.body.password, req.body.role))?"User added.":"denied";
     res.json({"message":msg}); 
@@ -51,8 +49,8 @@ router.put('/', async (req, res) => {
 });
 
 // Endpoint de Baja de usuario (D) -> DELETE
-router.delete('/', auth, (req, res) =>{
-    let name = req.body.name;
+router.delete('/:id', auth, (req, res) =>{
+    let name = req.params._id;
     let msg =  name + " eliminado";
     (us.deleteUserByName(name))? res.json({"msg" : msg}) : res.status(401); // Unauthorized 
 });

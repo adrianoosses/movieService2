@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+//const Schema = mongoose.Schema;
 // #TAREA: listar peliculas
 let usr = require('./components/user/router.js');
 let mv = require('./components/movie/router.js');
 let ldUser = require('./components/user/loadData.js');
 let ldMovie = require('./components/movie/loadData.js');
 
-ldUser.loadUsers().then();
+//ldUser.loadUsers().then();
 //ldMovie.loadMovies2().then();
 //let mv = require('./components/movie/router.js');
 //let or = require('./routes/orders.js');
@@ -37,7 +37,7 @@ useFindAndModify: false
 
 
 app.use('/user', usr.routes);
-//app.use('/movie', mv.routes);
+app.use('/movie', mv.routes);
 //app.use('/orders', or.routes);
 
 
