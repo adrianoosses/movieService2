@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const um = require('./model.js');
-const User = um.User;
+const {User} = require('./model.js');
 
 exports.loadUsers = async () =>{
     const adrianoObj = {name: 'adriano', pass: '123456', email: 'adriano@geekshubs.com', role: 'ADMIN'};

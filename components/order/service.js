@@ -5,23 +5,28 @@ let getOrderByUserId = async (id) =>{
     return orders;
 } 
 
-exports.addOrder = async (queryIn) =>{
+exports.addOrder = async (res, req) =>{
+    //console.log("addd ");
     let dateRent = new Date();
     let daysToRent = 7;
     let dateRefund = new Date(dateRent);
     dateRefund.setDate(dateRent.getDate() + daysToRent);
-
-    if((await getOrderByUserId(queryIn.userId)).length === 0){
+    console.log("req.body.userId "+ req.body);
+    if((await getOrderByUserId(req.body.userId)).length === 0){
         let newOrder = new Order({
-            userId: queryIn.userId, 
-            movieId: queryIn.movieId, 
+            userId: req.body.userId, 
+            movieId: req.body.movieId, 
             createdAt: dateRent, 
             refundDate: dateRefund
         });
 
         await newOrder.save();
+        res.json({"msg":"Added"})
         return true;
-    }else return false;
+    }else{
+        res.json({"msg":"Not added"})
+        return false;
+    }
 }
 
 exports.getOrder = async (queryIn) =>{

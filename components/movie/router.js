@@ -10,17 +10,8 @@ const ms = require('./service.js');
 // GESTION DE PELICULAS
 
 // Endpoint busqueda titulo, genero, actores, director, duracion
-router.get('/', async (req, res) =>{
-    let movies = await ms.getMovies(req.query);
-    res.json(movies); 
-});
+router.get('/', ms.getMovies);
 
-
-router.post('/', (req, res) =>{
-    let msg = "";
-    if(ms.addMovie(req.body)) msg = " added";
-    else msg = "exists";
-    res.json({"msg": req.body.title + msg});
-});
+router.post('/', ms.addMovie);
 
 exports.routes = router;

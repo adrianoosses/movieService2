@@ -1,14 +1,19 @@
 const um = require('./model.js');
 const Movie = um.Movie;
 
-exports.getMovies = async (queryIn) =>{
+let getMoviesBy = async (req, res) =>{
     const query = {};
     //console.log("queryIn.title "+ queryIn.title);
-    if(queryIn.title) query.title = queryIn.title;
-    if(queryIn.director) query.director = queryIn.director;
-    if(queryIn.duration) query.duration =queryIn.duration;
-    if(queryIn.genre) query.genre = queryIn.genre;
+    if(req.query.title) query.title = queryIn.title;
+    if(req.query.director) query.director = queryIn.director;
+    if(req.query.duration) query.duration =queryIn.duration;
+    if(req.query.genre) query.genre = queryIn.genre;
     return await Movie.find(query);
+}
+
+exports.getMovies = async (req, res) =>{
+    let movies = await getMoviesBy(req, res);
+    res.json(movies); 
 }
 
 let movieExistsByTitle= async (titleIn) =>{
@@ -17,20 +22,22 @@ let movieExistsByTitle= async (titleIn) =>{
 }
 
 //let addMovie = async (movieTitle, movieDirector, movieActors, movieGenre, movieDuration) =>{
-exports.addMovie = async (queryIn) =>{
-    if(!(await movieExistsByTitle(queryIn.title))){
+exports.addMovie = async (req, res) =>{
+    let msg = "";
+
+    if(!(await movieExistsByTitle(req.body.title))){
         console.log("movie is not yet");
-        let newMovie = {title: queryIn.title, 
-            director: queryIn.director, 
-            actors: queryIn.actors, 
-            genre: queryIn.genre, 
-            duration: queryIn.duration};
+        let newMovie = {title: req.body.title, 
+            director: req.body.director, 
+            actors: req.body.actors, 
+            genre: req.body.genre, 
+            duration: req.body.duration};
         const movie = new Movie(newMovie);
         await movie.save();
-        return true
+        res.json({"msg": "added"})
     }else{
         console.log("movie is in");
-        return false;
+        res.json({"msg": "Not added"})
     }
 };
 

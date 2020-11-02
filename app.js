@@ -14,13 +14,19 @@ let {getMovies} = require('./components/movie/service.js');
 let ldUser = require('./components/user/loadData.js');
 let ldMovie = require('./components/movie/loadData.js');
 
+/*
 let loadData = async () =>{
-    let lenUser = (await getUsers({})).length;
-    let lenMovie = (await getMovies({})).length;
-    if(lenUser === 0) ldUser.loadUsers().then();
-    if(lenMovie === 0) ldMovie.loadMovies2().then();
+    let users = await getUsers({})
+    //let lenMovie = (await getMovies({})).length;
+    console.log("len "+ users)
+    if(!users) ldUser.loadUsers().then();
+    
+    //if(lenMovie === 0) ldMovie.loadMovies2().then();
 }
 loadData();
+*/
+//ldUser.loadUsers().then();
+//ldMovie.loadMovies2().then();
 
 let bodyParser = require('body-parser')
 app.use(bodyParser.json());
@@ -37,7 +43,7 @@ useFindAndModify: false
 
 app.use('/user', usr.routes);
 app.use('/movie', mv.routes);
-app.use('/orders', or.routes);
+app.use('/order', or.routes);
 
 
 app.get('/', (req, res) => { 
