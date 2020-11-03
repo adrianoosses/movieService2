@@ -11,7 +11,7 @@
 // ldMovie.loadMovies2().then();
 2. Pruebe los endpoints incluidos en el archivo de Postman para las distintas entidades:
     - Entidad Usuario:
-        - GET Login: ingrese con un nombre disponible en la base de datos (contraseña y token).
+        - GET Login: ingrese con un email disponible en la base de datos (contraseña y token).
         - GET: muestra una lista de los usuarios de la base de datos.
         - GET + parámetro: muestra el objeto usuario con un parámetro (nombre) dado.
         - PUT: modifica el nombre de un usuario.
