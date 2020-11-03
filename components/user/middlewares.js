@@ -9,7 +9,7 @@ exports.auth = (req, res, next) => {
         //console.log("us.decodeToken(token) "+us.decodeToken(token));
         next();
     }
-    else console.log("ERROR");
+    else console.log("ERROR token");
 }
 
 exports.isAdmin = (req, res, next) => {

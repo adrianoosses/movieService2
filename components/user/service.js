@@ -4,9 +4,9 @@ let claveToken = "fdfdkjfd.sa#fjpdfjkl";
 
 exports.generateToken = (user)=>{
     let newUser = {
-        name: user.name,
+        email: user.email
     }
-    console.log("name: " + newUser.name);
+    console.log("email: " + newUser.email);
     return token = jwt.sign(newUser, claveToken, {expiresIn: 60 * 60 * 24})
 }
 
@@ -14,10 +14,9 @@ exports.getUserById = async (userId) =>{
     return await User.findOne({_id: userId});
 } 
 let getUsersByBody = async (req, res) =>{
-    //let usuarios = await Promise.all(um.users.find({}));
     let query = {};
-    if(!!req.body.email) query.email = req.body.email;
     let users = null;
+    if(!!req.body.email) query.email = req.body.email;
     if(query.email !== undefined){
         users = await User.findOne(query);
     }
@@ -25,14 +24,10 @@ let getUsersByBody = async (req, res) =>{
 };
 
 let getUsersBy = async (req, res) =>{
-    //let usuarios = await Promise.all(um.users.find({}));
     let query = {};
-    //console.log("!!req.query.name"+!!req.query.name);
     if(!!req.query.name) query.name = req.query.name;
     if(!!req.params._id) query._id = req.params._id;
-    //console.log("query name" + query.name);
     let users = await User.findOne(query);
-    
     return users;
 };
 
@@ -44,16 +39,12 @@ exports.getUsers = async (req, res) =>{
 
 exports.deleteUserByName = async (req, res) =>{
     let id = req.params.id; // body
-    //console.log("id " + id);
-    //(us.deleteUserByName(name))? res.json({"msg" : msg}) : res.status(401); // Unauthorized 
     await User.deleteOne({_id: id});
     res.json({"msg": id + "eliminado"});
 }
 
 exports.decodeToken = (token) =>{
-    //console.log("decodeToken");
     try {
-        //console.log("TOKEN 2: " + token);
         return jwt.verify(token, claveToken);
     } catch(e) {
         return null;
@@ -70,10 +61,8 @@ exports.addUser = async (req, res) =>{
 };
 
 exports.login = async(req, res) =>{
-    //console.log("entra al login");
     let password = req.body.password;
     let usrLoginString = await getUsersByBody(req, res);
-    //console.log("usrLoginString "+ usrLoginString);
     let resul = false;
     let msg = "";
     if(usrLoginString !== undefined && usrLoginString !== null){
@@ -89,8 +78,6 @@ exports.login = async(req, res) =>{
     }else{
         msg = "ERROR";
     }
-    //let usr = await us.getUser(req.body);
-    //console.log("TOKEN 2: " + us.generateToken(usr.name));
     res.json({"msg":msg});
     return resul;
 };
