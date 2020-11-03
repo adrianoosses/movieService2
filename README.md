@@ -24,6 +24,15 @@
     - Entidad Pedido:
         - GET: muestra una lista de los pedidos de la base de datos.
         - POST: introduce un nuevo pedido en la base de datos.
+3. Tecnologías utilizadas:
+- ES6
+- NodeJs
+- Express
+- API
+- Postman
+- Mongoose
+- JSON
+
 ## Intructions
 ### Set up
 1. Download the project.
