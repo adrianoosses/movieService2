@@ -11,3 +11,13 @@ exports.auth = (req, res, next) => {
     }
     else console.log("ERROR");
 }
+
+exports.isAdmin = (req, res, next) => {
+    if(req.body.role === 'ADMIN'){
+        console.log("User is admin.");
+        next();
+    } else{
+        console.log("ERROR: User is not admin.");
+        res.json({"msg":"ERROR: not authorized."})
+    }
+}

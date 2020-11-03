@@ -1,17 +1,10 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 
-const {addOrder, getOrder} = require('./service.js');
-const mongoose = require('mongoose');
+const {getOrder, addOrder} = require('./service.js');
 
 //ORDER MANAGEMENT
-
+router.get('/', getOrder);
 router.post('/', addOrder);
-
-router.get('/', async (req, res) =>{
-    let orders = await getOrder(req.body);
-    res.json({'orders':orders});
-} )
 
 exports.routes = router;

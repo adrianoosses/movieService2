@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 
 const {User} = require('./model.js');
-const {auth} = require('./middlewares.js');
+const {auth, isAdmin} = require('./middlewares.js');
 const {login, addUser, getUsers, changeUser, deleteUserByName} = require('./service.js');
 
 const mongoose = require('mongoose');
@@ -19,6 +19,6 @@ router.get('/', getUsers);
 router.put('/', changeUser);
 
 // Endpoint de Baja de usuario (D) -> DELETE
-router.delete('/:id', auth, deleteUserByName);
+router.delete('/:id', isAdmin, deleteUserByName);
 
 exports.routes = router;
