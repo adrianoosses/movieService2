@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000;
 
 // #TAREA: listar peliculas
 let usr = require('./components/user/router.js');
@@ -50,5 +51,5 @@ app.get('/', (req, res) => {
     res.json({"msg":getMovies});
 });
 
-app.listen(3000, () => console.log("Sever running"));
+app.listen(PORT, () => console.log("Sever running"));
 
