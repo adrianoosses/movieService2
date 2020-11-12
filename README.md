@@ -1,5 +1,9 @@
 # MOVIE SERVICE
 ## Instrucciones
+
+GitHub Pages: https://adrianoosses.github.io/movieService2/ <br>
+Heroku: https://movie-service-2.herokuapp.com/
+
 ### Instalación del entorno
 1. Descargue el proyecto.
 2. Importe el fichero movies.postman_collection.json en la apliación Postman.
