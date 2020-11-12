@@ -16,6 +16,10 @@ exports.getMovies = async (req, res) =>{
     res.json(movies); 
 }
 
+const getAllMovies = async() =>{
+    console.log("getAllMovies");
+}
+
 let movieExistsByTitle= async (titleIn) =>{
     let movies = await Movie.findOne({title: titleIn});
     return !!movies;
