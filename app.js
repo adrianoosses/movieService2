@@ -46,9 +46,13 @@ app.use('/user', usr.routes);
 app.use('/movie', mv.routes);
 app.use('/order', or.routes);
 
-
+/*
 app.get('/', (req, res) => { 
     res.json({"msg":getMovies});
+});
+*/
+app.get('/', (req, res) => { 
+    res.sendFile('index.html', {root: __dirname })
 });
 
 app.listen(PORT, () => console.log("Sever running"));
