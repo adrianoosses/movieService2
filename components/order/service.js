@@ -1,3 +1,4 @@
+const { getUserByEmail } = require('../user/service.js');
 const {Order} = require('./model.js');
 
 exports.getOrder = async (req, res) =>{
@@ -6,10 +7,33 @@ exports.getOrder = async (req, res) =>{
     let orders = await Order.find(query);
     res.json({'orders':orders});
 } 
+/*
+let getOrderByUserId = async (id) =>{
+    let orders = await Order.find({userId: id});
+    return orders;
+}*/
 
 let getOrderByUserId = async (id) =>{
     let orders = await Order.find({userId: id});
     return orders;
+}
+
+exports.getOrderUser = async(req, res) =>{
+    let user = await getUserByEmail(req, res);
+    console.log("getOrderUSer: ", user);
+    //console.log("id: ", user._id)
+    try{
+        order = await getOrderByUserId(user._id);
+        console.log("order: ", order);
+        if(order.length) res.json({"msg":"1 order was found", "content":order});
+        else res.json({"msg":"No order was found", "content":""});
+        return true;
+    }catch{
+        console.log("Error happened");
+        order = "";
+        res.status(400).json({"error":"Error"});
+        return false;
+    }
 }
 
 exports.addOrder = async (req, res) =>{

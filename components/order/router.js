@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const {auth, isAdmin} = require('../user/middlewares');
 
-const {getOrder, addOrder} = require('./service.js');
+const {getOrder, getOrderUser, addOrder} = require('./service.js');
 
 //ORDER MANAGEMENT
+router.get('/myOrders', getOrderUser);
 router.get('/', getOrder);
 router.post('/', addOrder);
 

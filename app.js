@@ -9,6 +9,10 @@ let usr = require('./components/user/router.js');
 let mv = require('./components/movie/router.js');
 let or = require('./components/order/router.js');
 
+let show2 = () =>{
+    console.log("muestra");
+}
+
 let {getUsers} = require('./components/user/service.js');
 let {getMovies} = require('./components/movie/service.js');
 

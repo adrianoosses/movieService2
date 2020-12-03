@@ -27,8 +27,15 @@ let getUsersBy = async (req, res) =>{
     let query = {};
     if(!!req.query.name) query.name = req.query.name;
     if(!!req.params._id) query._id = req.params._id;
-    let users = await User.findOne(query);
+    let users = await User.find(query);
     return users;
+};
+
+exports.getUserByEmail = async (req, res) =>{
+    let query = {};
+    if(!!req.query.email) query.email = req.query.email;
+    let user = await User.findOne(query);
+    return user;
 };
 
 exports.getUsers = async (req, res) =>{
@@ -53,7 +60,7 @@ exports.decodeToken = (token) =>{
 
 exports.addUser = async (req, res) =>{
     let msg = "User added.";
-    let newUser = {name: req.body.name, pass: req.body.password, role: req.body.role}
+    let newUser = {name: req.body.name, pass: req.body.password, email:req.body.email, role: req.body.role}
     const user = new User(newUser);
     await user.save();
     res.json({"message":msg}); 

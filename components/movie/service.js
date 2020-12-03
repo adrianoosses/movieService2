@@ -15,9 +15,8 @@ exports.getMovies = async (req, res) =>{
     let movies = await getMoviesBy(req, res);
     res.json(movies); 
 }
-
-const getAllMovies = async() =>{
-    console.log("getAllMovies");
+exports.show2 = () =>{
+    console.log("muestra");
 }
 
 let movieExistsByTitle= async (titleIn) =>{
